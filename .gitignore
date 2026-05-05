@@ -1,0 +1,5 @@
+node_modules/
+dist/
+its.db
+.env
+docs/implementation-plan.md
