@@ -112,7 +112,7 @@ export function createSession(id: string, studentId: string): void {
 }
 
 export function getSession(id: string): SessionRow | undefined {
-  return db.prepare('SELECT * FROM sessions WHERE id = ?').get(id) as SessionRow | undefined;
+  return db.prepare('SELECT * FROM sessions WHERE id = ?').get(id) as unknown as SessionRow | undefined;
 }
 
 export function updateSessionEngineState(id: string, state: EngineState): void {
@@ -122,7 +122,7 @@ export function updateSessionEngineState(id: string, state: EngineState): void {
 }
 
 export function getKCStates(studentId: string): KCStateRow[] {
-  return db.prepare('SELECT * FROM kc_states WHERE student_id = ?').all(studentId) as KCStateRow[];
+  return db.prepare('SELECT * FROM kc_states WHERE student_id = ?').all(studentId) as unknown as KCStateRow[];
 }
 
 export function upsertKCState(row: Omit<KCStateRow, 'id'>): void {
@@ -157,7 +157,7 @@ export function clearPendingIntervention(studentId: string, kcId: string): void 
 export function insertAttempt(attempt: Omit<AttemptRow, 'id' | 'attempt_number' | 'created_at'>): void {
   const row = db.prepare(
     'SELECT COUNT(*) as count FROM attempts WHERE session_id = ? AND question_id = ?'
-  ).get(attempt.session_id, attempt.question_id) as { count: number };
+  ).get(attempt.session_id, attempt.question_id) as unknown as { count: number };
 
   db.prepare(`
     INSERT INTO attempts
@@ -177,7 +177,7 @@ export function insertAttempt(attempt: Omit<AttemptRow, 'id' | 'attempt_number' 
 export function getAnsweredQuestionIds(sessionId: string): string[] {
   const rows = db.prepare(
     'SELECT DISTINCT question_id FROM attempts WHERE session_id = ? AND (is_correct = 1 OR was_reveal = 1)'
-  ).all(sessionId) as { question_id: string }[];
+  ).all(sessionId) as unknown as { question_id: string }[];
   return rows.map(r => r.question_id);
 }
 
@@ -185,6 +185,6 @@ export function getAnsweredQuestionIds(sessionId: string): string[] {
 if (require.main === module) {
   const tables = db.prepare(
     "SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY name"
-  ).all() as { name: string }[];
+  ).all() as unknown as { name: string }[];
   console.log('Tables:', tables.map(t => t.name).join(', '));
 }

@@ -1,0 +1,864 @@
+{
+  "questions": [
+    {
+      "id": "gs_nov_01",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "What does the command `git status` do?",
+      "choices": {
+        "a": "Shows a list of all commits made on the current branch",
+        "b": "Shows the current state of your working directory and staging area",
+        "c": "Uploads your changes to the remote repository",
+        "d": "Deletes files that are no longer being tracked"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_status_shows_committed"
+      },
+      "hints": [
+        "Think about what information you'd want before deciding whether to commit.",
+        "The word 'status' refers to the current condition of things — not history.",
+        "git status tells you about files in your working directory and staging area right now, not about past commits."
+      ],
+      "reveal": "`git status` shows the current state of your working directory and staging area. It tells you which files are staged, which are modified but not staged, and which are untracked. It says nothing about commit history — use `git log` for that.",
+      "feedback": {
+        "correct": "Correct. git status is a snapshot of right now, not a record of the past.",
+        "incorrect": "Not quite — think about what 'status' means in the context of your current working state."
+      }
+    },
+    {
+      "id": "gs_nov_02",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "What does it mean for a file to be 'staged'?",
+      "choices": {
+        "a": "The file has been saved to disk",
+        "b": "The file has been pushed to GitHub",
+        "c": "The file has been added to the next commit using git add",
+        "d": "The file has been committed to the repository"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "d": "misc_status_shows_committed"
+      },
+      "hints": [
+        "Staging is a step that happens before committing — think of it as a preparation area.",
+        "The command `git add` is how you move a file into the staged state.",
+        "Staging means the file is in the staging area (also called the index). It will be included in your next commit when you run `git commit`."
+      ],
+      "reveal": "A staged file is one you have added to the staging area using `git add`. It is queued up to be included in your next commit. Staging is separate from committing — you stage first, then commit.",
+      "feedback": {
+        "correct": "Right. Staged means ready to be included in the next commit — not yet committed.",
+        "incorrect": "Remember: staging comes before committing. Think about what `git add` does."
+      }
+    },
+    {
+      "id": "gs_nov_03",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "What are the three areas git tracks your files through?",
+      "choices": {
+        "a": "Local, Remote, and Cloud",
+        "b": "Working directory, Staging area, and Repository (commit history)",
+        "c": "Draft, Review, and Published",
+        "d": "Saved, Uploaded, and Archived"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "There is a place where you edit files, a place where you prepare changes, and a place where changes are permanently recorded.",
+        "Think: where do you write code? Where do you queue changes with `git add`? Where do commits live?",
+        "The three areas are: working directory (where you edit), staging area (where `git add` puts things), and the repository (where `git commit` records them permanently)."
+      ],
+      "reveal": "Git tracks files through three areas: the working directory (where you edit files), the staging area (where you prepare changes with `git add`), and the repository (where commits are permanently stored with `git commit`).",
+      "feedback": {
+        "correct": "Exactly. Working directory → staging area → repository. Each `git add` and `git commit` moves changes forward through those areas.",
+        "incorrect": "The three areas are specific git concepts — try to recall the terms from the git workflow."
+      }
+    },
+    {
+      "id": "gs_nov_04",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "What is an 'untracked' file?",
+      "choices": {
+        "a": "A file that has been modified since the last commit",
+        "b": "A file that git has never seen before — it has never been staged or committed",
+        "c": "A file that was deleted from the repository",
+        "d": "A file that is staged but not yet committed"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "The word 'untracked' means git is not keeping track of it at all.",
+        "If you create a brand new file in your project and have never run `git add` on it, what does git know about it?",
+        "Untracked means git has never seen the file. It has not been staged or committed — git is completely unaware of it until you run `git add`."
+      ],
+      "reveal": "An untracked file is one that git has no history of. It has never been staged or committed. Git sees it in your working directory but ignores it until you explicitly run `git add` on it.",
+      "feedback": {
+        "correct": "Right. Untracked means entirely new to git — not staged, not committed, not tracked at all.",
+        "incorrect": "Untracked has a specific meaning in git. Think about a brand-new file you just created."
+      }
+    },
+    {
+      "id": "gs_nov_05",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   index.js\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n\tmodified:   App.css\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env",
+      "question": "Which answer correctly describes the state of each file?",
+      "choices": {
+        "a": "index.js is staged; App.css is unstaged; .env is untracked",
+        "b": "All three files are staged and ready to commit",
+        "c": "index.js is committed; App.css and .env still need to be staged",
+        "d": "index.js is unstaged; App.css is staged; .env is untracked"
+      },
+      "correct": "a",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "c": "misc_status_shows_committed"
+      },
+      "hints": [
+        "Each file appears under a different section heading. The heading tells you the state.",
+        "'Changes to be committed' means staged. 'Changes not staged for commit' means modified but not staged.",
+        "index.js is under 'Changes to be committed' (staged). App.css is under 'Changes not staged for commit' (unstaged). .env is under 'Untracked files' (never added)."
+      ],
+      "reveal": "index.js is staged (listed under 'Changes to be committed'). App.css is modified but not staged (listed under 'Changes not staged for commit'). .env has never been added to git (listed under 'Untracked files').",
+      "feedback": {
+        "correct": "Exactly. Each section header is git telling you exactly where each file stands.",
+        "incorrect": "Re-read the section headers carefully — each one means something specific."
+      }
+    },
+    {
+      "id": "gs_par_01",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "partial",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   README.md\n\tmodified:   server.js\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n\tmodified:   config.js\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env\n\tnode_modules/",
+      "question": "You only want to commit the two staged files. Which files should you NOT touch before committing?",
+      "choices": {
+        "a": "README.md and server.js — they are already committed",
+        "b": "config.js and .env — they are not staged and should stay that way",
+        "c": "node_modules/ — it is already ignored by git",
+        "d": ".env — it is already staged"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_status_shows_committed"
+      },
+      "hints": [
+        "You want to commit only what is currently staged. What files are NOT staged?",
+        "config.js is unstaged and .env is untracked. Neither is staged. If you do nothing, they will not be included in the commit.",
+        "The files you should leave alone are config.js (unstaged) and .env (untracked). README.md and server.js are already staged and ready."
+      ],
+      "reveal": "config.js (unstaged) and .env (untracked) are not in the staging area and will not be included in the next commit unless you `git add` them. README.md and server.js are already staged.",
+      "feedback": {
+        "correct": "Correct. Only staged files go into a commit. config.js and .env are not staged, so they are safe to leave.",
+        "incorrect": "Look at what is staged vs. not staged. Only staged files get committed."
+      }
+    },
+    {
+      "id": "gs_par_02",
+      "kc": "git_status",
+      "type": "fill_command",
+      "targetLevel": "partial",
+      "scenario": "$ git status\nOn branch main\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n\tmodified:   login.js\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\tstyles.css",
+      "question": "You want to stage only login.js. Write the exact command.",
+      "choices": null,
+      "correct": null,
+      "acceptedAnswers": ["git add login.js"],
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "The command to stage a specific file starts with `git add`.",
+        "To stage a single file, you pass its name directly: `git add <filename>`.",
+        "The exact command is: `git add login.js`"
+      ],
+      "reveal": "`git add login.js` stages only that file. Running `git add .` would stage both login.js and styles.css, which you may not want. Always prefer `git add <file>` when you want to control exactly what goes into a commit.",
+      "feedback": {
+        "correct": "Correct. `git add login.js` stages only that file and leaves styles.css untouched.",
+        "incorrect": "Use `git add` followed by the exact filename."
+      }
+    },
+    {
+      "id": "gs_par_03",
+      "kc": "git_status",
+      "type": "fill_command",
+      "targetLevel": "partial",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   App.css\n\nYou realize App.css has unrelated changes that should not be in this commit.",
+      "question": "Write the command to remove App.css from the staging area without discarding your edits.",
+      "choices": null,
+      "correct": null,
+      "acceptedAnswers": [
+        "git restore --staged App.css",
+        "git restore --staged app.css"
+      ],
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "You want to unstage the file — remove it from the staging area while keeping your changes in the working directory.",
+        "The command is `git restore` with a flag that targets the staging area specifically.",
+        "The flag you need is `--staged`. The full command is: `git restore --staged App.css`"
+      ],
+      "reveal": "`git restore --staged App.css` removes the file from the staging area and puts it back into 'Changes not staged for commit' — your edits are preserved. Without `--staged`, `git restore App.css` would discard your working directory changes entirely.",
+      "feedback": {
+        "correct": "Correct. --staged is the key flag here — it unstages without touching your actual file.",
+        "incorrect": "The command is `git restore` with a specific flag. What flag targets only the staging area?"
+      }
+    },
+    {
+      "id": "gs_par_04",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "partial",
+      "scenario": "$ git status\nOn branch main\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n\tmodified:   utils.js\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env\n\tnode_modules/",
+      "question": "Which of these files should almost never be staged or committed?",
+      "choices": {
+        "a": "utils.js — it has been modified",
+        "b": ".env — it likely contains secrets like API keys",
+        "c": "Both .env and node_modules/ — neither belongs in the repository",
+        "d": "node_modules/ only — .env is fine to commit"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Think about what each of these files contains and what happens if someone else clones your repo.",
+        ".env typically stores secrets. node_modules/ contains packages that can be reinstalled from package.json.",
+        "Both belong in .gitignore. .env should never be committed because it contains secrets. node_modules/ should never be committed because it is huge and reproducible with `npm install`."
+      ],
+      "reveal": "Both .env and node_modules/ should be in your .gitignore and never committed. .env contains secrets (API keys, passwords) that must not be shared. node_modules/ is regenerated by `npm install` and would bloat the repository.",
+      "feedback": {
+        "correct": "Exactly. Both belong in .gitignore — one for security, one for size.",
+        "incorrect": "Consider both what each file contains and what happens if it ends up on GitHub."
+      }
+    },
+    {
+      "id": "gs_par_05",
+      "kc": "git_status",
+      "type": "multiple_choice",
+      "targetLevel": "partial",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tnew file:   feature.js\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n\tmodified:   feature.js",
+      "question": "The same file appears in two sections. What does this mean?",
+      "choices": {
+        "a": "Git has made a mistake and listed the file twice",
+        "b": "The version of feature.js at the time of `git add` is staged; changes made after that are unstaged",
+        "c": "feature.js is fully staged and the second entry can be ignored",
+        "d": "feature.js needs to be deleted and re-added"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Git stages a snapshot of a file at the moment you run `git add`, not a live link.",
+        "If you edit a file after staging it, the new edits are not automatically included in the staged snapshot.",
+        "The staged version is the snapshot from when you ran `git add`. The unstaged version reflects edits made after that. If you commit now, only the older staged snapshot will be committed."
+      ],
+      "reveal": "When you `git add` a file, git snapshots it at that moment. If you edit the file afterward, those new edits are unstaged. Both versions coexist: the staged snapshot (ready to commit) and the newer working directory version (not yet staged). To include the latest edits, run `git add feature.js` again.",
+      "feedback": {
+        "correct": "Right. git add snapshots the file — edits after that point are not captured until you re-stage.",
+        "incorrect": "This is a common situation. Think about what `git add` actually captures."
+      }
+    },
+    {
+      "id": "gs_mas_01",
+      "kc": "git_status",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   auth.js\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n\tmodified:   auth.js\n\tmodified:   db.js\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env\n\ttests/auth.test.js",
+      "question": "You want to commit only the auth.js bug fix (the currently staged version). What is your sequence of actions?",
+      "choices": {
+        "a": "Run `git add .` to stage everything, then commit",
+        "b": "Commit now — only the staged snapshot of auth.js will be included",
+        "c": "Run `git add auth.js` to re-stage the latest version, then commit",
+        "d": "Unstage auth.js, re-add it, then commit everything"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "You only want to commit the version of auth.js that is already staged — the snapshot from when you last ran `git add`.",
+        "db.js, .env, and tests/auth.test.js are not staged. They will not be included unless you `git add` them.",
+        "Running `git commit` right now will commit only the staged snapshot of auth.js. That is exactly what you want — no extra `git add` needed."
+      ],
+      "reveal": "You can commit immediately. Only staged files are included in a commit. auth.js (staged snapshot) is isolated and ready. db.js (unstaged), .env (untracked), and tests/auth.test.js (untracked) will not be included.",
+      "feedback": {
+        "correct": "Correct. Committing now captures exactly the staged snapshot of auth.js and nothing else.",
+        "incorrect": "Think carefully about what is and is not staged. Do you need to do anything before committing?"
+      }
+    },
+    {
+      "id": "gs_mas_02",
+      "kc": "git_status",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   api.js\n\tmodified:   api.test.js\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env.local",
+      "question": "A teammate says api.js and api.test.js should be two separate commits. What do you do?",
+      "choices": {
+        "a": "Commit both together — separating them is not worth the effort",
+        "b": "Unstage api.test.js with `git restore --staged api.test.js`, commit api.js, then re-stage and commit api.test.js",
+        "c": "Delete api.test.js, commit api.js, then restore api.test.js",
+        "d": "Run `git reset --hard` and start over"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "You need to separate two staged files into two commits without losing any work.",
+        "`git restore --staged <file>` moves a file from staged back to unstaged — your changes are preserved.",
+        "Unstage api.test.js (keeping your edits), commit api.js alone, then `git add api.test.js` and commit it separately."
+      ],
+      "reveal": "Use `git restore --staged api.test.js` to move it back to unstaged — your edits stay intact. Commit api.js on its own. Then `git add api.test.js` and commit it with its own message. Two focused commits instead of one mixed one.",
+      "feedback": {
+        "correct": "Correct. `git restore --staged` is the precise tool for this — no work is lost.",
+        "incorrect": "You need a way to separate staged files without losing edits. Which command moves a file out of staging safely?"
+      }
+    },
+    {
+      "id": "gs_mas_03",
+      "kc": "git_status",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "A junior developer says: \"I ran git status and I can see index.html is listed. That means my last commit was saved, right?\"",
+      "question": "What is wrong with their understanding, and what would you tell them?",
+      "choices": {
+        "a": "Nothing is wrong — if a file appears in git status, it was committed",
+        "b": "git status only shows uncommitted changes. A committed file would not appear there at all unless it was modified again afterward",
+        "c": "git status shows all files ever committed, which is helpful for tracking history",
+        "d": "They need to run `git push` before the commit is saved"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_status_shows_committed",
+        "c": "misc_status_shows_committed"
+      },
+      "hints": [
+        "Ask yourself: if a file was cleanly committed and not touched since, would it appear in `git status` at all?",
+        "A file only appears in `git status` if it is in a state that needs attention — staged, modified, or untracked.",
+        "If index.html appears in `git status`, it means something changed after the last commit (or it was never committed). A cleanly committed, unmodified file is invisible to `git status`."
+      ],
+      "reveal": "`git status` only surfaces files that differ from the last commit. A committed file with no subsequent changes does not appear at all. If index.html shows up, it means it was modified, newly staged, or never committed. For commit history, use `git log`.",
+      "feedback": {
+        "correct": "Exactly right. Appearing in git status is a sign of uncommitted change, not committed status.",
+        "incorrect": "Think about what it means for a file to be absent from `git status` output."
+      }
+    },
+    {
+      "id": "gs_mas_04",
+      "kc": "git_status",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "$ git status\nOn branch main\n\nnothing to commit, working tree clean",
+      "question": "What does this output tell you, and what is a valid next action?",
+      "choices": {
+        "a": "All files are deleted. You should restore them with git checkout.",
+        "b": "Every tracked file matches the last commit exactly. You can start making changes or switch branches safely.",
+        "c": "You have not yet made your first commit. Run `git add .` to start tracking files.",
+        "d": "Your changes were pushed to the remote. No further action is needed."
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "This is a clean state message. What does 'clean' mean for a working tree?",
+        "'Nothing to commit' means no staged or unstaged changes exist. 'Working tree clean' means every tracked file matches its last committed version.",
+        "This is the ideal state — everything is committed. You can safely edit files, switch branches, or do nothing."
+      ],
+      "reveal": "'Nothing to commit, working tree clean' means all tracked files match the last commit. There are no staged changes, no unstaged modifications. This is a clean baseline — a good time to start new work, switch branches, or confirm your last commit captured everything.",
+      "feedback": {
+        "correct": "Right. A clean working tree is the ideal resting state after a commit.",
+        "incorrect": "Read the message literally — what does 'nothing to commit' and 'working tree clean' each mean?"
+      }
+    },
+    {
+      "id": "gs_mas_05",
+      "kc": "git_status",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   payment.js\n\tmodified:   payment.test.js\n\tnew file:   stripe-config.js\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env",
+      "question": "Before committing, you notice stripe-config.js contains a hardcoded API key. What should you do?",
+      "choices": {
+        "a": "Commit anyway and remove the key in a follow-up commit",
+        "b": "Run `git restore --staged stripe-config.js`, remove the hardcoded key, move secrets to .env, add stripe-config.js to .gitignore, then commit payment.js and payment.test.js",
+        "c": "Add .env to the staging area so the key is stored in the right file",
+        "d": "Rename stripe-config.js so git does not track it"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Committing a secret, even once, is dangerous — it lives in git history even if you delete it later.",
+        "You need to unstage stripe-config.js, fix the problem, then decide how to handle it before committing.",
+        "Unstage stripe-config.js with `git restore --staged`, move the key to .env, add stripe-config.js to .gitignore, then proceed with committing only payment.js and payment.test.js."
+      ],
+      "reveal": "Never commit secrets — even a 'fix it next commit' approach leaves the key in git history permanently. Unstage stripe-config.js, move the API key to .env, add stripe-config.js to .gitignore, then commit only payment.js and payment.test.js.",
+      "feedback": {
+        "correct": "Correct. A secret committed once is a secret that lives in history. Unstage, fix, then commit.",
+        "incorrect": "Think about what committing a secret means for git history — it cannot be easily undone."
+      }
+    },
+    {
+      "id": "cm_nov_01",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "Why do commit messages matter?",
+      "choices": {
+        "a": "They are required by git or the command will fail",
+        "b": "They help teammates and your future self understand why a change was made when reading history",
+        "c": "They are only useful if you are working on a large team",
+        "d": "They are only read by automated deployment tools"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "c": "misc_messages_only_for_self"
+      },
+      "hints": [
+        "Imagine reading a commit from three months ago with no message. What are you missing?",
+        "Who might read your commit messages? Consider: teammates, future maintainers, and yourself.",
+        "Commit messages communicate why a change happened. Without them, `git log` is just a list of cryptic diffs with no context."
+      ],
+      "reveal": "Commit messages are the human-readable record of why changes were made. They are read by teammates doing code review, by future developers debugging a regression, and by yourself when you wonder why you made a decision six months ago.",
+      "feedback": {
+        "correct": "Exactly. Commit messages are documentation — written for anyone who reads the history.",
+        "incorrect": "Think about who reads git history and when."
+      }
+    },
+    {
+      "id": "cm_nov_02",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "Which commit message is best?",
+      "choices": {
+        "a": "fix",
+        "b": "fixed the bug",
+        "c": "Fix null check in auth middleware to prevent crash on unauthenticated requests",
+        "d": "I fixed the null pointer exception that was causing the app to crash when users were not authenticated by adding a null check in the middleware"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_messages_only_for_self",
+        "b": "misc_messages_only_for_self"
+      },
+      "hints": [
+        "A good message is clear to a reader with no context. Eliminate the ones that are too vague.",
+        "Consider: is the verb in the right tense? Is the message the right length for a subject line?",
+        "Option C uses imperative mood ('Fix', not 'fixed'), is under 50 characters, says what changed AND why. Option D is accurate but too long for a subject line."
+      ],
+      "reveal": "'Fix null check in auth middleware to prevent crash on unauthenticated requests' is correct. Imperative mood, under 50 characters, specific, and includes the reason. 'fix' and 'fixed the bug' are too vague. Option D belongs in a commit body, not the subject line.",
+      "feedback": {
+        "correct": "Right. Imperative mood, specific, under 50 characters, and includes the why.",
+        "incorrect": "Look for: imperative mood, appropriate length, specific content, and a reason."
+      }
+    },
+    {
+      "id": "cm_nov_03",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "What does 'imperative mood' mean for commit messages?",
+      "choices": {
+        "a": "The message must sound urgent and important",
+        "b": "The message should read like a command: 'Fix bug' not 'Fixed bug' or 'Fixes bug'",
+        "c": "The message must be written in all uppercase",
+        "d": "The message should start with a ticket number"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Imperative mood is a grammatical term. Think about how a command or instruction sounds.",
+        "Compare: 'Add login form' vs 'Added login form' vs 'Adds login form'. Which reads like an instruction?",
+        "Imperative mood means the message reads as a direct command: 'Fix bug', 'Add feature', 'Remove deprecated code'."
+      ],
+      "reveal": "Imperative mood means writing the message as a direct command: 'Fix bug', not 'Fixed bug' (past tense) or 'Fixes bug' (present tense). A useful test: your message should complete the sentence 'If applied, this commit will ___'.",
+      "feedback": {
+        "correct": "Correct. Imperative mood reads like a command: 'Fix', 'Add', 'Remove', 'Update'.",
+        "incorrect": "Imperative mood is a grammatical concept — think about how you would write an instruction."
+      }
+    },
+    {
+      "id": "cm_nov_04",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "What is the recommended maximum length for a commit message subject line?",
+      "choices": {
+        "a": "No limit — write as much detail as you want on one line",
+        "b": "10 characters — keep it as short as possible",
+        "c": "50 characters — long enough to be meaningful, short enough to be scannable",
+        "d": "140 characters — same as a tweet"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Think about how commit messages are displayed — in terminals, in GitHub, in git log output. Long lines get cut off.",
+        "The limit balances two concerns: enough space to be meaningful, short enough to fit on one line when scanning history.",
+        "50 characters is the convention. It fits cleanly in `git log --oneline` and GitHub's commit list without wrapping."
+      ],
+      "reveal": "50 characters is the widely accepted limit for a commit subject line. If you need more detail, add it in the commit body (separated by a blank line), not by extending the subject line.",
+      "feedback": {
+        "correct": "Right. 50 characters for the subject line — use the body for anything longer.",
+        "incorrect": "Think about how git displays commit messages in log output."
+      }
+    },
+    {
+      "id": "cm_nov_05",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "novice",
+      "scenario": null,
+      "question": "What is missing from this commit message: 'Refactor user authentication'?",
+      "choices": {
+        "a": "Nothing — this is a good commit message",
+        "b": "It does not explain why the authentication was refactored",
+        "c": "It should start with a lowercase letter",
+        "d": "It needs a ticket number at the beginning"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_message_omits_why"
+      },
+      "hints": [
+        "The message tells you what changed. What does it not tell you?",
+        "Imagine reading this in six months. You know auth was refactored — but why? What drove the decision?",
+        "A better version would add the reason: 'Refactor user authentication to support OAuth 2.0 providers'."
+      ],
+      "reveal": "'Refactor user authentication' says what changed but not why. The most useful part of a commit message is often the reason — was it for performance? To fix a bug? To support a new feature? Better: 'Refactor user authentication to support OAuth 2.0 providers'.",
+      "feedback": {
+        "correct": "Right. What is described but why is missing. The why is often the most important part.",
+        "incorrect": "The message describes what was done. What question does it leave unanswered?"
+      }
+    },
+    {
+      "id": "cm_par_01",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "partial",
+      "scenario": "You just fixed a bug where the app crashed when a user submitted an empty search query. The fix was a null check in the search() function in search.js.",
+      "question": "Which commit message is best for this change?",
+      "choices": {
+        "a": "bug fix",
+        "b": "Fixed the crash",
+        "c": "Add null check in search() to prevent crash on empty query",
+        "d": "I added a null check inside the search function in search.js because when a user submitted an empty search form the app was crashing and this fixes that issue by returning early"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_messages_only_for_self",
+        "b": "misc_message_omits_why"
+      },
+      "hints": [
+        "Eliminate anything too vague to be useful after six months.",
+        "Check the verb tense and length. Should it be 'Add' or 'Added'? Does option D fit in 50 characters?",
+        "Option C is imperative mood, under 50 characters, names the specific change and gives the reason."
+      ],
+      "reveal": "'Add null check in search() to prevent crash on empty query' is correct. Imperative mood, specific about where the change was made and why, and concise. Option D contains the same information but is too long for a subject line — that detail belongs in the body.",
+      "feedback": {
+        "correct": "Correct. Specific, imperative, under 50 chars, and includes the reason.",
+        "incorrect": "Check for: imperative mood, appropriate length, specificity, and the reason for the change."
+      }
+    },
+    {
+      "id": "cm_par_02",
+      "kc": "commit_message",
+      "type": "fill_message",
+      "targetLevel": "partial",
+      "scenario": "You added input validation to the registration form. Without it, users could submit with blank fields and create broken accounts. The changes are in register.js.",
+      "question": "Write a commit message subject line. Use imperative mood, keep it under 50 characters, and include the reason.",
+      "choices": null,
+      "correct": null,
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Start with an imperative verb: Add, Validate, Enforce, Require...",
+        "Name what was changed and why in one line, under 50 characters.",
+        "Example: 'Add input validation to prevent blank account creation'"
+      ],
+      "reveal": "Good examples: 'Add input validation to prevent blank account creation' or 'Validate register form to block empty field submission'. Key elements: imperative verb, what changed (validation), why (prevent broken accounts).",
+      "feedback": {
+        "correct": "Good. Imperative mood, specific, and the reason is present.",
+        "incorrect": "Check: does it start with an imperative verb? Is it under 50 characters? Does it explain why?"
+      }
+    },
+    {
+      "id": "cm_par_03",
+      "kc": "commit_message",
+      "type": "fill_message",
+      "targetLevel": "partial",
+      "scenario": "You removed the console.log() statements that were accidentally left in the production build. They were cluttering browser dev tools output.",
+      "question": "Write a commit message subject line. Imperative mood, under 50 characters, include the why.",
+      "choices": null,
+      "correct": null,
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Start with an imperative verb: Remove, Clean, Delete...",
+        "Be specific about what was removed and why it matters.",
+        "Example: 'Remove debug console.log statements left in production'"
+      ],
+      "reveal": "Good examples: 'Remove debug console.log statements left in production' or 'Clean up console.log calls to reduce dev tools noise'.",
+      "feedback": {
+        "correct": "Good. Specific and to the point.",
+        "incorrect": "Check: imperative verb? Under 50 characters? Does it name what was removed and why?"
+      }
+    },
+    {
+      "id": "cm_par_04",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "partial",
+      "scenario": null,
+      "question": "Which of these commit messages best explains both what changed and why?",
+      "choices": {
+        "a": "Update config",
+        "b": "Changed the timeout value",
+        "c": "Increase API timeout to 10s to handle slow third-party responses",
+        "d": "Fix stuff"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_message_omits_why",
+        "b": "misc_message_omits_why",
+        "d": "misc_messages_only_for_self"
+      },
+      "hints": [
+        "Eliminate the ones that tell you nothing useful about what or why.",
+        "A good message should let a reviewer understand the change without opening the diff.",
+        "'Increase API timeout to 10s to handle slow third-party responses' tells you exactly what changed and exactly why."
+      ],
+      "reveal": "Option C is the only message that tells you both what changed (API timeout to 10s) and why (to handle slow third-party responses). All other options are too vague to be useful without reading the diff.",
+      "feedback": {
+        "correct": "Right. What + why in one clear line.",
+        "incorrect": "Look for the message that answers both 'what changed?' and 'why was this necessary?'"
+      }
+    },
+    {
+      "id": "cm_par_05",
+      "kc": "commit_message",
+      "type": "multiple_choice",
+      "targetLevel": "partial",
+      "scenario": null,
+      "question": "When should you write a multi-line commit message with a subject and body?",
+      "choices": {
+        "a": "Always — every commit should have a detailed body",
+        "b": "Never — keep all commit messages to one line",
+        "c": "When the why or context cannot fit in 50 characters — use the body for motivation, caveats, or links",
+        "d": "Only for commits that touch more than 10 files"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Think about when a one-line subject leaves important context out.",
+        "A body is for information that helps future readers — motivation, tradeoffs, links to issues.",
+        "Use a body when the reason or context is complex enough that a single subject line would leave important questions unanswered."
+      ],
+      "reveal": "Use a body when the subject line alone leaves out important context. Simple, obvious changes do not need a body. Format: subject line, blank line, then the body paragraphs.",
+      "feedback": {
+        "correct": "Right. The body is for context that does not fit in 50 characters.",
+        "incorrect": "Think about when a one-line message is sufficient vs. when a reader would need more context."
+      }
+    },
+    {
+      "id": "cm_mas_01",
+      "kc": "commit_message",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n\tmodified:   checkout.js\n\tmodified:   cart.js\n\nYou fixed a bug: the cart total was not recalculating after a coupon was applied.",
+      "question": "Write the best commit message subject line for this change.",
+      "choices": {
+        "a": "Fix cart",
+        "b": "Fixed bug in checkout where coupon did not update total correctly so users saw wrong price",
+        "c": "Fix cart total not updating after coupon is applied",
+        "d": "Update checkout.js and cart.js"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_message_omits_why",
+        "d": "misc_message_omits_why"
+      },
+      "hints": [
+        "Eliminate the too-vague options. A good message survives without the diff.",
+        "Check tense — 'Fix' or 'Fixed'? Check length — does option B fit in 50 characters?",
+        "Option C is imperative mood, under 50 characters, and describes the specific problem and cause."
+      ],
+      "reveal": "'Fix cart total not updating after coupon is applied' is correct. Imperative mood, under 50 characters, describes the specific defect that was resolved. Option B is accurate but too long. Options A and D lack the reason.",
+      "feedback": {
+        "correct": "Correct. Specific, imperative, and fits on one line.",
+        "incorrect": "Check: imperative mood, under 50 characters, specific about what was broken and why."
+      }
+    },
+    {
+      "id": "cm_mas_02",
+      "kc": "commit_message",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "You are migrating the project's database driver from `mysql` to `mysql2` to support connection pooling and prepared statements. This touches db.js, config/database.js, and package.json.",
+      "question": "This change warrants a body. Which option has the best subject + body combination?",
+      "choices": {
+        "a": "Migrate to mysql2\n\nChanged the import.",
+        "b": "Switch database driver from mysql to mysql2\n\nThe mysql package does not support connection pooling or prepared statements natively. mysql2 is a drop-in replacement that adds both, reducing connection overhead under load.",
+        "c": "Updated database\n\nWe updated the database package because the old one did not work well and the new one is better and supports more features.",
+        "d": "fix db"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "d": "misc_messages_only_for_self"
+      },
+      "hints": [
+        "The subject should be imperative and specific. The body should explain the motivation concretely.",
+        "Look for: clear subject under 50 chars, a blank line separator, and a body that explains why the change was made.",
+        "Option B has a specific imperative subject and a body that names the concrete limitations of the old driver and the benefits of the new one."
+      ],
+      "reveal": "Option B is correct. The subject is imperative, specific, and under 50 characters. The body names the concrete limitations of mysql and explains exactly what mysql2 adds. Option C's body is vague. Option A's body is trivially obvious.",
+      "feedback": {
+        "correct": "Right. A great body explains the specific why — not just that something is 'better'.",
+        "incorrect": "Evaluate both parts: is the subject imperative and specific? Does the body explain motivation concretely?"
+      }
+    },
+    {
+      "id": "cm_mas_03",
+      "kc": "commit_message",
+      "type": "fill_message",
+      "targetLevel": "mastery",
+      "scenario": "$ git status\nOn branch main\n\nChanges to be committed:\n\tmodified:   middleware/rateLimit.js\n\nYou added rate limiting to the API: 100 requests per minute per IP. Without it, the API was vulnerable to abuse and scraping.",
+      "question": "Write a full commit message — subject line plus body. Subject under 50 chars, imperative mood, body explains the why.",
+      "choices": null,
+      "correct": null,
+      "acceptedAnswers": null,
+      "bodyRequired": true,
+      "misconceptionTriggers": {},
+      "hints": [
+        "Subject: imperative verb, what was added, why in brief. Body: expand the reason.",
+        "Subject example: 'Add rate limiting to protect API from abuse' — blank line — then the body.",
+        "Body should cover: what the limit is (100 req/min/IP) and what it protects against (abuse, scraping)."
+      ],
+      "reveal": "Good subject: 'Add rate limiting to protect API from abuse'\n\nGood body: 'Limit each IP to 100 requests per minute. Without this the API was open to scraping and denial-of-service abuse. Implemented in middleware/rateLimit.js.'",
+      "feedback": {
+        "correct": "Good. Subject sets the stage, body fills in the details.",
+        "incorrect": "Check: is the subject imperative and under 50 chars? Is there a body explaining why?"
+      }
+    },
+    {
+      "id": "cm_mas_04",
+      "kc": "commit_message",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "A teammate opens a PR with this commit history:\n\n  abc1234 stuff\n  def5678 more changes\n  ghi9012 fix\n  jkl3456 wip\n  mno7890 final version",
+      "question": "What is the core problem, and what would you say in the PR review?",
+      "choices": {
+        "a": "The commits are fine — what matters is the code, not the messages",
+        "b": "The messages are too short in character count — they should be at least 20 characters",
+        "c": "None of the messages explain what changed or why. This history is useless for debugging or understanding decisions made during the feature",
+        "d": "There are too many commits — they should have been squashed into one"
+      },
+      "correct": "c",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_messages_only_for_self"
+      },
+      "hints": [
+        "Imagine a bug was introduced in one of these commits. How would you find it using `git log` or `git bisect`?",
+        "Consider what each message tells you about the intent of that change.",
+        "Messages like 'stuff', 'wip', and 'fix' tell a future reader nothing. The entire history of this feature is opaque."
+      ],
+      "reveal": "The problem is that none of the messages communicate intent. When debugging a regression months later, `git log` should be a useful trail. This history is noise. In a review you would ask the author to rewrite the messages via `git rebase -i` with specific, imperative subject lines before merging.",
+      "feedback": {
+        "correct": "Right. Commit history is documentation. These messages make it worthless.",
+        "incorrect": "Think about what these messages communicate to someone reading the history months from now."
+      }
+    },
+    {
+      "id": "cm_mas_05",
+      "kc": "commit_message",
+      "type": "scenario",
+      "targetLevel": "mastery",
+      "scenario": "You spent three hours debugging a timezone offset issue. Root cause: Date.now() returns UTC, but the display layer was treating it as local time. You fixed it by converting to UTC consistently throughout the data pipeline.",
+      "question": "Write the best subject line for this commit.",
+      "choices": {
+        "a": "Fix timezone bug",
+        "b": "Fix date display by normalizing timestamps to UTC throughout pipeline",
+        "c": "Fixed the Date.now() issue that was causing the wrong time to display",
+        "d": "Update dates"
+      },
+      "correct": "b",
+      "acceptedAnswers": null,
+      "bodyRequired": false,
+      "misconceptionTriggers": {
+        "a": "misc_message_omits_why",
+        "d": "misc_message_omits_why"
+      },
+      "hints": [
+        "The message should save the next person three hours of debugging. What do they need to know?",
+        "Check tense (imperative), check length, check whether the root cause is communicated.",
+        "Option B names the symptom (date display), the fix (normalizing to UTC), and the scope (throughout pipeline)."
+      ],
+      "reveal": "'Fix date display by normalizing timestamps to UTC throughout pipeline' is correct. Imperative mood, under 50 characters, names both the symptom and the fix. Option C is past tense and slightly vague. Options A and D give almost no information.",
+      "feedback": {
+        "correct": "Right. This message would save the next person hours.",
+        "incorrect": "The message should help someone understand the bug and fix without reading the full diff."
+      }
+    }
+  ],
+
+  "interventions": {
+    "misc_status_shows_committed": "Quick note: `git status` only shows the current state of your working directory and staging area — it says nothing about what has already been committed. A committed file that has not been modified since will not appear in `git status` at all. To see commit history, use `git log`.",
+    "misc_restore_equals_staged": "Heads up: `git restore <file>` and `git restore --staged <file>` do very different things. `git restore <file>` discards your working directory changes entirely. `git restore --staged <file>` only removes the file from the staging area while keeping your edits intact. Always use `--staged` when you want to unstage without losing work.",
+    "misc_messages_only_for_self": "Commit messages are not just for you. They are read by teammates doing code review, by future developers debugging a regression, and by yourself six months from now when you have forgotten the context. Write every message as if the reader has no idea why the change was made.",
+    "misc_message_omits_why": "A commit message that only says what changed is only half useful. The most valuable part is often the why — what problem does this solve? What would break without it? The diff already shows what changed. The message should explain the reasoning behind it."
+  }
+}
