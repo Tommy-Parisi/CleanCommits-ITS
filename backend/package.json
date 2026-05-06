@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "test": "node --import tsx/esm --test \"src/engine/__tests__/*.ts\""
+    "test": "node --require tsx/cjs --test src/engine/__tests__/*.test.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.0",
