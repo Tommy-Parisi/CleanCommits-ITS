@@ -107,6 +107,10 @@ export function getOrCreateStudent(id: string): void {
   db.prepare('INSERT OR IGNORE INTO students (id) VALUES (?)').run(id);
 }
 
+export function initKCState(studentId: string, kcId: string): void {
+  db.prepare('INSERT OR IGNORE INTO kc_states (student_id, kc_id) VALUES (?, ?)').run(studentId, kcId);
+}
+
 export function createSession(id: string, studentId: string): void {
   db.prepare('INSERT INTO sessions (id, student_id) VALUES (?, ?)').run(id, studentId);
 }
