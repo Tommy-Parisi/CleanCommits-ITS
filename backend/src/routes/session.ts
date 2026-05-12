@@ -10,7 +10,7 @@ import {
 import { questions, interventions } from '../questions';
 import { toSnapshot } from '../snapshots';
 import { getPendingIntervention, selectNext } from '../engine/questionSelector';
-import { getNextHint, recordWrongAnswer, isRevealUnlocked } from '../engine/hintManager';
+import { getNextHint, recordWrongAnswer, isRevealUnlocked, canGetHint } from '../engine/hintManager';
 import { evaluate } from '../engine/answerEvaluator';
 import { updateKCState } from '../engine/studentModel';
 import type { StartSessionResponse, NextQuestionResponse, SubmitAnswerRequest } from '@its/shared';
@@ -25,7 +25,7 @@ function parseEngineState(raw: string): EngineState {
     return {
       currentQuestionId: parsed.currentQuestionId ?? null,
       hintsUsed:         parsed.hintsUsed         ?? 0,
-      wrongAfterHint3:   parsed.wrongAfterHint3   ?? 0,
+      wrongAnswers:      parsed.wrongAnswers ?? parsed.wrongAfterHint3 ?? 0,
       revealed:          parsed.revealed           ?? false,
     };
   } catch {
@@ -86,7 +86,7 @@ router.get('/:id/next', (c) => {
   const newEngineState: EngineState = {
     currentQuestionId: next.id,
     hintsUsed:         0,
-    wrongAfterHint3:   0,
+    wrongAnswers:      0,
     revealed:          false,
   };
   updateSessionEngineState(session.id, newEngineState);
@@ -146,11 +146,12 @@ router.post('/:id/answer', async (c) => {
     upsertKCState(updated);
 
     return c.json({
-      isCorrect:  true,
-      feedback:   question.feedback.correct,
+      isCorrect:   true,
+      feedback:    question.feedback.correct,
       revealShown: false,
-      revealText: null,
-      kcStates:   getKCStates(session.student_id).map(toSnapshot),
+      revealText:  null,
+      kcStates:    getKCStates(session.student_id).map(toSnapshot),
+      wrongAnswers: engineState.wrongAnswers,
     });
   }
 
@@ -182,6 +183,7 @@ router.post('/:id/answer', async (c) => {
       revealShown: true,
       revealText:  question.reveal,
       kcStates:    getKCStates(session.student_id).map(toSnapshot),
+      wrongAnswers: newEngineState.wrongAnswers,
     });
   }
 
@@ -192,6 +194,7 @@ router.post('/:id/answer', async (c) => {
     revealShown: false,
     revealText:  null,
     kcStates:    getKCStates(session.student_id).map(toSnapshot),
+    wrongAnswers: newEngineState.wrongAnswers,
   });
 });
 
@@ -207,6 +210,9 @@ router.post('/:id/hint', async (c) => {
   }
   if (engineState.revealed) {
     return c.json({ detail: 'Question already completed' }, 400);
+  }
+  if (!canGetHint(engineState)) {
+    return c.json({ detail: 'Submit an incorrect answer before requesting a hint' }, 400);
   }
 
   const question = questions.find(q => q.id === engineState.currentQuestionId);

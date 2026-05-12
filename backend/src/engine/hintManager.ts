@@ -1,14 +1,20 @@
 export interface HintState {
   hintsUsed: number;       // 0–3
-  wrongAfterHint3: number;
+  wrongAnswers: number;    // total wrong answers on this question
   revealed: boolean;
 }
 
 export const DEFAULT_HINT_STATE: HintState = {
   hintsUsed: 0,
-  wrongAfterHint3: 0,
+  wrongAnswers: 0,
   revealed: false,
 };
+
+// Each hint requires a wrong answer since the previous hint (or since question start).
+// Hint N is unlocked when wrongAnswers > (N - 1), i.e. wrongAnswers > hintsUsed.
+export function canGetHint(state: HintState): boolean {
+  return state.hintsUsed < 3 && state.wrongAnswers > state.hintsUsed;
+}
 
 export function getNextHint(
   hints: string[],
@@ -33,12 +39,11 @@ export function getNextHint(
 }
 
 export function recordWrongAnswer(state: HintState): HintState {
-  if (state.hintsUsed >= 3 && !state.revealed) {
-    return { ...state, wrongAfterHint3: state.wrongAfterHint3 + 1 };
-  }
-  return state;
+  if (state.revealed) return state;
+  return { ...state, wrongAnswers: state.wrongAnswers + 1 };
 }
 
 export function isRevealUnlocked(state: HintState): boolean {
-  return state.hintsUsed >= 3 && state.wrongAfterHint3 >= 1;
+  // All 3 hints used and one more wrong answer after that
+  return state.hintsUsed >= 3 && state.wrongAnswers > 3;
 }

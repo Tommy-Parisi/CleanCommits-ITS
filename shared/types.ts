@@ -52,6 +52,7 @@ export interface SubmitAnswerResponse {
   revealShown: boolean;
   revealText: string | null;
   kcStates: KCStateSnapshot[];
+  wrongAnswers: number;
 }
 
 export interface HintRequest {

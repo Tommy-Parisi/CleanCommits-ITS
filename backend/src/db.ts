@@ -75,7 +75,7 @@ export interface SessionRow {
 export interface EngineState {
   currentQuestionId: string | null;
   hintsUsed: number;
-  wrongAfterHint3: number;
+  wrongAnswers: number;
   revealed: boolean;
 }
 
@@ -97,7 +97,7 @@ export interface AttemptRow {
 export const DEFAULT_ENGINE_STATE: EngineState = {
   currentQuestionId: null,
   hintsUsed: 0,
-  wrongAfterHint3: 0,
+  wrongAnswers: 0,
   revealed: false,
 };
 
