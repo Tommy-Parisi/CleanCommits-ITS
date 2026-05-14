@@ -18,7 +18,6 @@ const LEVEL_LABELS: Record<ConceptualLevel, string> = {
 export function KCDashboard({ kcStates }: Props) {
   return (
     <div className="kc-dashboard">
-      <h2 className="dashboard-title">Knowledge State</h2>
 
       <section className="dashboard-section">
         <h3 className="dashboard-section-heading">Conceptual Knowledge</h3>

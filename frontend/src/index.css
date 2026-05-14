@@ -109,15 +109,12 @@ h1, h2 { font-family: var(--font-display); }
   font-family: var(--font-body);
   font-size: 0.6875rem;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 2px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #fff;
 }
 
-.tag-kc   { background: #1e3a8a; }
-.tag-type { background: #374151; }
+.tag-kc   { color: #1e3a8a; }
+.tag-type { color: var(--text-secondary); }
 
 .scenario-block {
   background: var(--terminal-bg);
@@ -501,17 +498,14 @@ h1, h2 { font-family: var(--font-display); }
 .level-badge {
   font-size: 0.6875rem;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 2px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #fff;
   flex-shrink: 0;
 }
 
-.level-novice  { background: #6b7280; }
-.level-partial { background: var(--amber); }
-.level-mastery { background: var(--green); }
+.level-novice  { color: #6b7280; }
+.level-partial { color: var(--amber); }
+.level-mastery { color: var(--green); }
 
 .proc-pct {
   font-size: 0.8125rem;
